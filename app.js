@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const res = require('express/lib/response')
 const hbs = require('hbs');
 const async = require('hbs/lib/async');
 
@@ -42,6 +43,28 @@ app.get("/artist-search", async (req, res)=>{
   })
   .catch(err => console.log('Erro0o0o0r', err));
 })
+
+app.get('/albums/:id',  (req, res) => {
+  // .getArtistAlbums() code goes here
+  spotifyApi
+  .getArtistAlbums(req.params.id)
+  .then(data => {
+    console.log(data.body);
+    res.render('albums', data.body)
+  })
+  .catch(err=> console.log ("The error is....", err))
+})
+
+app.get('/tracks/:id', (req, res) => {
+  const { id } = req.params;
+  spotifyApi
+      .getAlbumTracks(id)
+      .then(data => {
+          res.render('tracks', data.body)
+      })
+      .catch(err => console.log('audio error', err))
+})
+
 
 
 app.listen(3000, () => console.log('My Spotify project running on port 3000 🎧 🥁 🎸 🔊'));
