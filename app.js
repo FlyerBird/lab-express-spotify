@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const hbs = require('hbs');
-const bodyParser = require('body-parser');
+const async = require('hbs/lib/async');
 
 // require spotify-web-api-node package here:
 const SpotifyWebApi = require('spotify-web-api-node');
@@ -12,7 +12,7 @@ const app = express();
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
 app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.urlencoded({ extended: true }));
+
 
 // setting the spotify-api goes here:
 const spotifyApi = new SpotifyWebApi({
@@ -29,6 +29,18 @@ const spotifyApi = new SpotifyWebApi({
 // Our routes go here:
 app.get('/', (req, res)=> {
     res.render('index');
+})
+
+app.get("/artist-search", async (req, res)=>{
+  const { artist } = req.query;
+  spotifyApi
+  .searchArtists(`${artist}`)
+  .then(data => {
+    console.log('The received data from the API: ', data.body);
+    // ----> 'HERE WHAT WE WANT TO DO AFTER RECEIVING THE DATA FROM THE API'
+      res.render('artist-search-results', data.body.artists)
+  })
+  .catch(err => console.log('Erro0o0o0r', err));
 })
 
 
