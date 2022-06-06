@@ -1,10 +1,13 @@
 
- <div>
+ <div class="artist-search">
     {{#each items}}
-        <h2>name: {{ name }}</h2>
+    <div class="cards-artist">
+    <img src="{{images.1.url}}" alt= "{{name}}">
+    <div class="h2-a">
+    <h2>{{ name }}</h2>
         <a href="/tracks/{{id}}" id="{{id}}">View Tracks</a>
-        {{#each images}}
-        <p>image: <img src="{{url}}" alt= "{{name}}"></p>
-        {{/each}}
+    </div >
+    </div>
         {{/each}}
 </div>
+

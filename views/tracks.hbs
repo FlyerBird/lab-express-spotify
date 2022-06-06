@@ -1,24 +1,29 @@
+<div class="title-listen">
+   <h3>Title</h3>
+   <h3>Listen</h3>
+</div>
 
+<div class="tracklist">
 <ul>
     {{#each items}}
     <li>
         <h3>{{name}}</h3>
         {{#if preview_url}}
-    <figure>
-        <figcaption>Listen to {{name}}:</figcaption>
 
-  <audio
+<figure>
+        <figcaption>Listen to {{name}}:</figcaption>
+    <audio
         controls
         src="{{preview_url}}">
             Your browser does not support the
             <code>audio</code> element.
     </audio>
-    </figure>
+</figure>
     {{else}}
     <p>No audio available amigo</p>
     {{/if}}
     </li>
     {{/each}}
 </ul>
-
+</div>
 
